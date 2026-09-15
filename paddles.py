@@ -9,3 +9,14 @@ class Paddle(Turtle):
         self.color("white")
         self.penup()
         self. goto(x, y)
+
+    def up(self):
+        self.sety(self.ycor() + 15)
+
+    def down(self):
+        self.sety(self.ycor() - 15)
+
+    def stop(self):
+        self.sety(self.ycor())
+
+

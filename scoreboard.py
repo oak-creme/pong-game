@@ -8,6 +8,11 @@ class ScoreBoard(Turtle):
         self.penup()
         self.user_score = 0
         self.computer_score = 0
+
+
+
+    def update_scoreboard(self):
+        self.clear()
         self.goto(-100, 200)
         self.write(self.user_score, False, "center", ("Arial", 32, "bold"))
         self.goto(100, 200)

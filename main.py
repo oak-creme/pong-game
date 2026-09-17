@@ -35,9 +35,7 @@ game_on = True
 
 while game_on:
 
-    # user_score = 0
-    # computer_score = 0
-
+    game_score.update_scoreboard()
     time.sleep(0.05)
     ball.move()
     if ball.ycor() > 280 or ball.ycor() < -280:

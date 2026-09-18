@@ -18,17 +18,13 @@ ball = Ball()
 
 game_score = ScoreBoard()
 
-screen.onkeypress(user_paddle.up, "Up")
-screen.onkeyrelease(user_paddle.stop, "Up")
 
+#paddle movement
+screen.onkeypress(user_paddle.up, "Up")
 screen.onkeypress(user_paddle.down, "Down")
-screen.onkeyrelease(user_paddle.stop, "Down")
 
 screen.onkeypress(computer_paddle.up, "w")
-screen.onkeyrelease(computer_paddle.stop, "w")
-
 screen.onkeypress(computer_paddle.down, "s")
-screen.onkeyrelease(computer_paddle.stop, "s")
 
 
 game_on = True
@@ -36,21 +32,33 @@ game_on = True
 while game_on:
 
     game_score.update_scoreboard()
-    time.sleep(0.05)
+
+    time.sleep(ball.move_speed)
     ball.move()
+
+    #bounce physics from both paddles and walls
     if ball.ycor() > 280 or ball.ycor() < -280:
         ball.y_bounce()
     if (ball.distance(computer_paddle) < 100 and ball.xcor() > 330) or (ball.distance(user_paddle) < 100 and ball.xcor() < -330):
         ball.x_bounce()
 
+    #ball goes out of bounds, assign points
     if ball.xcor() > 390:
-        ball.reset()
         game_score.add_user_point()
-    if ball.xcor() < -390:
         ball.reset()
-        game_score.add_computer_point()
+    if ball.xcor() < -390:
+        game_score.add_user_point()
+        ball.reset()
 
-
+    #first to 5 points wins, game over
+    if game_score.user_score >= 5:
+        game_score.update_scoreboard()
+        print("user wins !")
+        game_on = False
+    elif game_score.computer_score >= 5:
+        game_score.update_scoreboard()
+        print("computer wins\nur asscheeks")
+        game_on = False
 
     screen.update()
 
